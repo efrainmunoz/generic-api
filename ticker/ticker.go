@@ -2,7 +2,9 @@ package ticker
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -32,6 +34,58 @@ type writeOp struct {
 	resp chan bool
 }
 
+type TickerResult struct {
+	Ask       [3]string `json:"a"`
+	Bid       [3]string `json:"b"`
+	Last      [2]string `json:"c"`
+	Volume    [2]string `json:"v"`
+	Vwap      [2]string `json:"p"`
+	NumTrades [2]int    `json:"t"`
+	Low       [2]string `json:"l"`
+	High      [2]string `json:"h"`
+	Open      string    `json:"o"`
+}
+
+type TickerResponse struct {
+	Error  []string                `json:"error"`
+	Result map[string]TickerResult `json:"result"`
+}
+
+var pairs = map[string]string{
+	"BTCUSD": "XXBTZUSD",
+	"ETHUSD": "XETHZUSD",
+	"LTCUSD": "XLTCZUSD"}
+
+func getTicker(pair string) (aTickerResponse TickerResponse, err error) {
+	httpCLI := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+	url := fmt.Sprintf("https://api.kraken.com/0/public/Ticker?pair=%s", pair)
+	// try to get kraken ticker
+	resp, err := httpCLI.Get(url)
+	if err != nil {
+		return TickerResponse{}, err
+	}
+
+	// make sure the body of the response is closed after func returns
+	defer resp.Body.Close()
+
+	// try to read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return TickerResponse{}, err
+	}
+
+	// Unmarshal the json
+	tickerResponse := TickerResponse{}
+	err = json.Unmarshal(body, &tickerResponse)
+	if err != nil {
+		return TickerResponse{}, err
+	}
+
+	return tickerResponse, nil
+}
+
 // GLOBAL VARS
 var tickers = make(map[string]Ticker)
 
@@ -47,8 +101,10 @@ func InitState() {
 		select {
 		case read := <-readsAll:
 			read.resp <- state
+
 		case read := <-readsOne:
 			read.resp <- state[read.key]
+
 		case write := <-writes:
 			state[write.key] = write.val
 			write.resp <- true
@@ -74,14 +130,17 @@ func write(pair string) {
 
 // Init service
 func InitService() {
-	pairs := []string{"BTCUSD", "ETHUSD", "LTCUSD"}
-	for _, pair := range pairs {
-		ticker := time.NewTicker(time.Millisecond * 500)
-		go func(p string) {
+
+	for sg3Key, _ := range pairs {
+		ticker := time.NewTicker(time.Millisecond * 1000)
+
+		go func() {
 			for range ticker.C {
-				write(p)
+				// tickerResponse, _ := getTicker(xchKey)
+				//fmt.Printf("%s: %v\n", sg3Key, tickerResponse)
+				write(sg3Key)
 			}
-		}(pair)
+		}()
 	}
 }
 
