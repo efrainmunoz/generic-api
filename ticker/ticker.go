@@ -3,64 +3,45 @@ package ticker
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"io/ioutil"
-	"math/rand"
 	"net/http"
-	"strconv"
-	"strings"
 	"time"
 )
 
-// MODELS
-type Ticker struct {
-	LastPrice string `json:"lastprice"`
-	BestBid   string `json:"bestbid"`
-	BestAsk   string `json:"bestask"`
-}
-
-type readAllOp struct {
-	resp chan map[string]Ticker
-}
-
-type readOneOp struct {
-	key  string
-	resp chan Ticker
-}
-
-type writeOp struct {
-	key  string
-	val  Ticker
-	resp chan bool
-}
-
-type TickerResult struct {
-	Ask       [3]string `json:"a"`
-	Bid       [3]string `json:"b"`
-	Last      [2]string `json:"c"`
-	Volume    [2]string `json:"v"`
-	Vwap      [2]string `json:"p"`
-	NumTrades [2]int    `json:"t"`
-	Low       [2]string `json:"l"`
-	High      [2]string `json:"h"`
-	Open      string    `json:"o"`
-}
-
-type TickerResponse struct {
-	Error  []string                `json:"error"`
-	Result map[string]TickerResult `json:"result"`
-}
-
+// GLOBAL VARS
+var tickers = make(map[string]Ticker)
+var readsAll = make(chan *readAllOp)
+var readsOne = make(chan *readOneOp)
+var writes = make(chan *writeOp)
 var pairs = map[string]string{
 	"BTCUSD": "XXBTZUSD",
 	"ETHUSD": "XETHZUSD",
-	"LTCUSD": "XLTCZUSD"}
+	"ETHBTC": "XETHXXBT",
+	"LTCUSD": "XLTCZUSD",
+	"LTCBTC": "XLTCXXBT",
+	"XRPUSD": "XXRPZUSD",
+	"XRPBTC": "XXRPXXBT",
+	"ZECUSD": "XZECZUSD",
+	"ZECBTC": "XZECXXBT",
+	"XMRUSD": "XXMRZUSD",
+	"XMRBTC": "XXMRXXBT",
+	"DASHUSD": "DASHUSD",
+	"DASHBTC": "DASHXBT",
+	"BCHUSD": "BCHUSD",
+	"BCHBTC": "BCHXBT",
+	"ETCUSD": "XETCZUSD",
+	"ETCBTC": "XETCXXBT",
+}
 
+// Get a ticker from Kraken api
 func getTicker(pair string) (aTickerResponse TickerResponse, err error) {
+
 	httpCLI := &http.Client{
-		Timeout: 10 * time.Second,
+		Timeout: 2 * time.Second,
 	}
+
 	url := fmt.Sprintf("https://api.kraken.com/0/public/Ticker?pair=%s", pair)
+
 	// try to get kraken ticker
 	resp, err := httpCLI.Get(url)
 	if err != nil {
@@ -86,12 +67,6 @@ func getTicker(pair string) (aTickerResponse TickerResponse, err error) {
 	return tickerResponse, nil
 }
 
-// GLOBAL VARS
-var tickers = make(map[string]Ticker)
-
-var readsAll = make(chan *readAllOp)
-var readsOne = make(chan *readOneOp)
-var writes = make(chan *writeOp)
 
 // STATE
 func InitState() {
@@ -109,15 +84,17 @@ func InitState() {
 			state[write.key] = write.val
 			write.resp <- true
 		}
+		//fmt.Println(state)
 	}
 }
 
 // WRITE new tickers
-func write(pair string) {
+func write(pair string, result TickerResult) {
 	ticker := Ticker{
-		LastPrice: strconv.Itoa(rand.Intn(5)),
-		BestBid:   strconv.Itoa(rand.Intn(5)),
-		BestAsk:   strconv.Itoa(rand.Intn(5))}
+		LastPrice: result.Last[0],
+		BestBid:   result.Bid[0],
+		BestAsk:   result.Ask[0],
+	}
 
 	write := &writeOp{
 		key:  pair,
@@ -130,33 +107,17 @@ func write(pair string) {
 
 // Init service
 func InitService() {
-
-	for sg3Key, _ := range pairs {
-		ticker := time.NewTicker(time.Millisecond * 1000)
-
-		go func() {
+	for sg3Key, xchKey := range pairs {
+		fmt.Println(sg3Key)
+		go func(sg3K string, xchK string) {
+			ticker := time.NewTicker(time.Millisecond * 1000)
 			for range ticker.C {
-				// tickerResponse, _ := getTicker(xchKey)
-				//fmt.Printf("%s: %v\n", sg3Key, tickerResponse)
-				write(sg3Key)
+				tickerResponse, err := getTicker(xchK)
+				if err == nil {
+					fmt.Printf("%s: %v\n", sg3K, tickerResponse)
+					write(sg3K, tickerResponse.Result[xchK])
+				}
 			}
-		}()
+		}(sg3Key, xchKey)
 	}
-}
-
-// HANDLERS
-func GetTickerAll(w http.ResponseWriter, r *http.Request) {
-	read := &readAllOp{resp: make(chan map[string]Ticker)}
-	readsAll <- read
-	w.Header().Set("content-type", "application/json")
-	json.NewEncoder(w).Encode(<-read.resp)
-}
-
-func GetTicker(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	read := &readOneOp{
-		key:  strings.ToUpper(params["pair"]),
-		resp: make(chan Ticker)}
-	readsOne <- read
-	json.NewEncoder(w).Encode(<-read.resp)
 }
