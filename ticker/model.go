@@ -5,6 +5,7 @@ type Ticker struct {
 	LastPrice string `json:"lastprice"`
 	BestBid   string `json:"bestbid"`
 	BestAsk   string `json:"bestask"`
+	Datetime int64 `json:"unixtime"`
 }
 
 type readAllOp struct {

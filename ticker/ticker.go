@@ -94,6 +94,7 @@ func write(pair string, result TickerResult) {
 		LastPrice: result.Last[0],
 		BestBid:   result.Bid[0],
 		BestAsk:   result.Ask[0],
+		Datetime: time.Now().Unix(),
 	}
 
 	write := &writeOp{
