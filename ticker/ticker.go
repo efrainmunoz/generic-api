@@ -12,7 +12,7 @@ import (
 var tickers = make(map[string]Ticker)
 var readsAll = make(chan *readAllOp)
 var readsOne = make(chan *readOneOp)
-var writes = make(chan *writeOp)
+var writes = make(chan *writeOp, 20)
 var pairs = map[string]string{
 	"BTCUSD": "XXBTZUSD",
 	"ETHUSD": "XETHZUSD",
@@ -84,7 +84,6 @@ func InitState() {
 			state[write.key] = write.val
 			write.resp <- true
 		}
-		//fmt.Println(state)
 	}
 }
 
