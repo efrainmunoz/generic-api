@@ -2,14 +2,14 @@ package orderbook
 
 // MODELS
 type Order struct {
-	Price    string
-	Volume   string
+	Price    string `json:"price"`
+	Volume   string `json:"volume"`
 }
 
 type Orderbook struct {
-	Asks []Order
-	Bids []Order
-	Timestamp int64
+	Asks []Order `json:"asks"`
+	Bids []Order `json:"bids"`
+	Timestamp int64 `json:"timestamp"`
 }
 
 type readAllOp struct {
