@@ -1,5 +1,5 @@
-## Installing instructions
+# generic-api
 
-
-Build the docker image with `docker build -t generic-api .` then
-run it with `docker run --rm -it -p 8000:8000 generic-api`.
+1. Clone the repo: `git clone https://github.com/efrainmunoz/generic-api.git`
+2. Build the docker image: `docker build -t <image-name> .`
+3. Run it with `docker run --rm -it -p <host-port:container-port> <image-name>`.
