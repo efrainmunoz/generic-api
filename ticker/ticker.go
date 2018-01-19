@@ -108,13 +108,11 @@ func write(pair string, result TickerResult) {
 // Init service
 func InitService() {
 	for sg3Key, xchKey := range pairs {
-		fmt.Println(sg3Key)
 		go func(sg3K string, xchK string) {
 			ticker := time.NewTicker(time.Millisecond * 1000)
 			for range ticker.C {
 				tickerResponse, err := getTicker(xchK)
 				if err == nil {
-					fmt.Printf("%s: %v\n", sg3K, tickerResponse)
 					write(sg3K, tickerResponse.Result[xchK])
 				}
 			}

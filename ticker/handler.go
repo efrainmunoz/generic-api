@@ -8,7 +8,7 @@ import (
 )
 
 // HANDLERS
-func GetTickerAll(w http.ResponseWriter, r *http.Request) {
+func GetAll(w http.ResponseWriter, r *http.Request) {
 	read := &readAllOp{resp: make(chan map[string]Ticker)}
 	readsAll <- read
 	w.Header().Set("content-type", "application/json")
@@ -16,7 +16,7 @@ func GetTickerAll(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(<-read.resp)
 }
 
-func GetTicker(w http.ResponseWriter, r *http.Request) {
+func Get(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	read := &readOneOp{
 		key:  strings.ToUpper(params["pair"]),
