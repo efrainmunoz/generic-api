@@ -37,7 +37,7 @@ var pairs = map[string]string{
 func getTrades(pair string) (aTradesResponse TradesResponse, err error) {
 
 	httpCLI := &http.Client{
-		Timeout: 2 * time.Second,
+		Timeout: 1500 * time.Millisecond,
 	}
 
 	url := fmt.Sprintf("https://api.kraken.com/0/public/Trades?pair=%s", pair)
@@ -70,7 +70,7 @@ func getTrades(pair string) (aTradesResponse TradesResponse, err error) {
 
 // STATE
 func InitState() {
-	var state = make(map[string]Trades)
+	var state = make(map[string]Trade)
 
 	for {
 		select {
@@ -81,6 +81,9 @@ func InitState() {
 			read.resp <- state[read.key]
 
 		case write := <-writes:
+			//if write.key == "BTCUSD" {
+			//	fmt.Println(write.val)
+			//}
 			state[write.key] = write.val
 			write.resp <- true
 		}
@@ -88,36 +91,31 @@ func InitState() {
 }
 
 // WRITE new tickers
-func write(pair string, result TradesResult) {
-	var asks []Order
-	var bids []Order
+func write(sg3Pair string, xchPair string, result TradesResult) {
+	if value, ok := result[xchPair].([]interface{}); ok {
+		l := len(value)
+		lastTrade :=  value[l-1]
+		lastTradeSlc := lastTrade.([]interface{})
+		var tradeAction string
+		if lastTradeSlc[3].(string) == "s" {
+			tradeAction = "sell"
+		} else {
+			tradeAction = "buy"
+		}
 
-	for _, ask := range result.Asks {
-		order := Order{
-			Price: ask[0].(string),
-			Volume: ask[1].(string)}
-		asks = append(asks, order)
+		trade := Trade{
+			Price: lastTradeSlc[0].(string),
+			Volume: lastTradeSlc[1].(string),
+			TradeAction: tradeAction}
+
+		write := &writeOp{
+			key:  sg3Pair,
+			val: trade,
+			resp: make(chan bool)}
+
+		writes <- write
+		<-write.resp
 	}
-
-	for _, bid := range result.Bids {
-		bid :=  Order{
-			Price: bid[0].(string),
-			Volume: bid[1].(string)}
-		bids = append(asks, bid)
-	}
-
-	trades := Trades{
-		Asks: asks,
-		Bids: bids,
-		Timestamp: time.Now().Unix()}
-
-	write := &writeOp{
-		key:  pair,
-		val: trades,
-		resp: make(chan bool)}
-
-	writes <- write
-	<-write.resp
 }
 
 // Init service
@@ -128,7 +126,7 @@ func InitService() {
 			for range ticker.C {
 				tradesResponse, err := getTrades(xchK)
 				if err == nil {
-					write(sg3K, tradesResponse.Result[xchK])
+					write(sg3K, xchK, tradesResponse.Result)
 				}
 			}
 		}(sg3Key, xchKey)

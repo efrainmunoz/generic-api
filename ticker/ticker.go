@@ -37,7 +37,7 @@ var pairs = map[string]string{
 func getTicker(pair string) (aTickerResponse TickerResponse, err error) {
 
 	httpCLI := &http.Client{
-		Timeout: 2 * time.Second,
+		Timeout: 1500 * time.Millisecond,
 	}
 
 	url := fmt.Sprintf("https://api.kraken.com/0/public/Ticker?pair=%s", pair)
@@ -81,6 +81,10 @@ func InitState() {
 			read.resp <- state[read.key]
 
 		case write := <-writes:
+			//if write.key == "BTCUSD" {
+			//
+			//	fmt.Printf("%s %s\n", write.val.LastPrice, time.Unix(write.val.Timestamp, 0))
+			//}
 			state[write.key] = write.val
 			write.resp <- true
 		}

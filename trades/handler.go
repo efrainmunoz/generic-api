@@ -9,7 +9,7 @@ import (
 
 // HANDLERS
 func GetAll(w http.ResponseWriter, r *http.Request) {
-	read := &readAllOp{resp: make(chan map[string]Orderbook)}
+	read := &readAllOp{resp: make(chan map[string]Trade)}
 	readsAll <- read
 	w.Header().Set("content-type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -20,7 +20,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	read := &readOneOp{
 		key:  strings.ToUpper(params["pair"]),
-		resp: make(chan Orderbook)}
+		resp: make(chan Trade)}
 	readsOne <- read
 	w.Header().Set("content-type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")

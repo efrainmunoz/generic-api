@@ -37,7 +37,7 @@ var pairs = map[string]string{
 func getOrderbook(pair string) (aOrderbookResponse OrderbookResponse, err error) {
 
 	httpCLI := &http.Client{
-		Timeout: 2 * time.Second,
+		Timeout: 1500 * time.Millisecond,
 	}
 
 	url := fmt.Sprintf("https://api.kraken.com/0/public/Depth?pair=%s", pair)

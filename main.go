@@ -29,8 +29,8 @@ func main() {
 	router.HandleFunc("/ticker/{pair}", ticker.Get).Methods("GET")
 	router.HandleFunc("/orderbook", orderbook.GetAll).Methods("GET")
 	router.HandleFunc("/orderbook/{pair}", orderbook.Get).Methods("GET")
-	router.HandleFunc("trades", trades.GetAll).Methods("GET")
-	router.HandleFunc("trades/{pair}", trades.Get).Methods("GET")
+	router.HandleFunc("/trades", trades.GetAll).Methods("GET")
+	router.HandleFunc("/trades/{pair}", trades.Get).Methods("GET")
 
 	// Start the server
 	http.ListenAndServe(":8000", router)
