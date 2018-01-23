@@ -1,0 +1,104 @@
+{
+  "BCHBTC": {
+    "lastprice": "0.15455000",
+    "bestbid": "0.15455000",
+    "bestask": "0.15488000",
+    "unixtime": 1516373680
+  },
+  "BCHUSD": {
+    "lastprice": "1793.700000",
+    "bestbid": "1793.700000",
+    "bestask": "1795.500000",
+    "unixtime": 1516373680
+  },
+  "BTCUSD": {
+    "lastprice": "11598.20000",
+    "bestbid": "11590.00000",
+    "bestask": "11598.20000",
+    "unixtime": 1516373680
+  },
+  "DASHBTC": {
+    "lastprice": "0.07247000",
+    "bestbid": "0.07246000",
+    "bestask": "0.07276000",
+    "unixtime": 1516373680
+  },
+  "DASHUSD": {
+    "lastprice": "838.370000",
+    "bestbid": "838.424000",
+    "bestask": "840.664000",
+    "unixtime": 1516373680
+  },
+  "ETCBTC": {
+    "lastprice": "0.00280200",
+    "bestbid": "0.00279000",
+    "bestask": "0.00280200",
+    "unixtime": 1516373680
+  },
+  "ETCUSD": {
+    "lastprice": "32.54200000",
+    "bestbid": "32.33100000",
+    "bestask": "32.51200000",
+    "unixtime": 1516373680
+  },
+  "ETHBTC": {
+    "lastprice": "0.091640",
+    "bestbid": "0.091560",
+    "bestask": "0.091640",
+    "unixtime": 1516373679
+  },
+  "ETHUSD": {
+    "lastprice": "1063.31000",
+    "bestbid": "1060.05000",
+    "bestask": "1063.31000",
+    "unixtime": 1516373680
+  },
+  "LTCBTC": {
+    "lastprice": "0.01688500",
+    "bestbid": "0.01680200",
+    "bestask": "0.01688400",
+    "unixtime": 1516373680
+  },
+  "LTCUSD": {
+    "lastprice": "195.74000",
+    "bestbid": "195.00000",
+    "bestask": "195.43000",
+    "unixtime": 1516373680
+  },
+  "XMRBTC": {
+    "lastprice": "0.02800100",
+    "bestbid": "0.02800000",
+    "bestask": "0.02812000",
+    "unixtime": 1516373679
+  },
+  "XMRUSD": {
+    "lastprice": "325.18000000",
+    "bestbid": "325.00000000",
+    "bestask": "325.68000000",
+    "unixtime": 1516373680
+  },
+  "XRPBTC": {
+    "lastprice": "0.000136430",
+    "bestbid": "0.000136430",
+    "bestask": "0.000137050",
+    "unixtime": 1516373680
+  },
+  "XRPUSD": {
+    "lastprice": "1.58805000",
+    "bestbid": "1.58800000",
+    "bestask": "1.58803000",
+    "unixtime": 1516373680
+  },
+  "ZECBTC": {
+    "lastprice": "0.045170",
+    "bestbid": "0.045010",
+    "bestask": "0.045170",
+    "unixtime": 1516373680
+  },
+  "ZECUSD": {
+    "lastprice": "523.91000",
+    "bestbid": "521.26000",
+    "bestask": "524.74000",
+    "unixtime": 1516373680
+  }
+}

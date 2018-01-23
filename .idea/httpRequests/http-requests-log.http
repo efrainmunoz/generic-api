@@ -1,0 +1,358 @@
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T111110.404.txt
+
+###
+
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T110855.404.txt
+
+###
+
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T110851.404.txt
+
+###
+
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094514.404.txt
+
+###
+
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094227.404.txt
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094218.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094206.200.json
+
+###
+
+GET http://localhost:8000/ticker/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094158.200.json
+
+###
+
+GET http://localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094151.200.json
+
+###
+
+GET http://localhost:8000/trades/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094146.404.txt
+
+###
+
+GET http://localhost:8000/trades
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094142.404.txt
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094125.200.json
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-22T094117.200.json
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T011031.200.json
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T010835.200.json
+
+###
+
+GET http://localhost:8000/orderbook/btcusd
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T121219.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T121211.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T120804.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T120554.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T120444.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T120435.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T120006.200.json
+
+###
+
+GET http://localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T115958.200.json
+
+###
+
+GET localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET https://api.kraken.com/0/public/Depth?pair=XXBTZUSD
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T110007.200.json
+
+###
+
+GET https://api.kraken.com/0/public/Depth
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T105921.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T105706.200.json
+
+###
+
+GET http://localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T105657.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T105440.200.json
+
+###
+
+GET http://localhost:8000/ticker
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-01-19T105435.200.json
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8000/orderbook
+Accept: */*
+Cache-Control: no-cache
+
+###
+
