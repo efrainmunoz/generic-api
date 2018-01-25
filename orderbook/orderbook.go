@@ -100,10 +100,10 @@ func write(pair string, result OrderbookResult) {
 	}
 
 	for _, bid := range result.Bids {
-		bid :=  Order{
+		order :=  Order{
 			Price: bid[0].(string),
 			Volume: bid[1].(string)}
-		bids = append(asks, bid)
+		bids = append(bids, order)
 	}
 
 	orderbook := Orderbook{
